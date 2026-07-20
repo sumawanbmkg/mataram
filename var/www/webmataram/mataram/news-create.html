@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Tulis Berita - Admin Panel BMKG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- TinyMCE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+<style>.tox-notifications-container, .tox-statusbar__branding { display: none !important; }</style>
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-slate-800 text-white transform -translate-x-full lg:translate-x-0 transition-transform z-50">
+        <div class="p-4 border-b border-slate-700">
+            <div class="flex items-center gap-3">
+                <img src="../logo-bmkg.png" alt="BMKG" class="h-10">
+                <div>
+                    <h1 class="font-bold">Admin Panel</h1>
+                    <p class="text-xs text-slate-400">BMKG Mataram</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="news.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition">
+                        <i class="fas fa-newspaper w-5"></i>
+                        <span>Kelola Berita</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="news-create.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white">
+                        <i class="fas fa-plus-circle w-5"></i>
+                        <span>Tulis Berita</span>
+                    </a>
+                </li>
+                <li id="usersMenu" class="hidden">
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Kelola User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition">
+                        <i class="fas fa-user-cog w-5"></i>
+                        <span>Profil & MFA</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+            <button id="logoutBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 transition w-full">
+                <i class="fas fa-sign-out-alt w-5"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="menuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-slate-800 text-white p-3 rounded-lg">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">Tulis Berita Baru</h2>
+                <p class="text-sm text-gray-500">Buat artikel berita baru</p>
+            </div>
+            <div id="autoSaveStatus" class="text-sm text-gray-500">
+                <i class="fas fa-cloud"></i> <span>Siap</span>
+            </div>
+        </header>
+
+        <!-- Auto-save Recovery Banner -->
+        <div id="recoveryBanner" class="hidden bg-yellow-50 border-b border-yellow-200 p-4">
+            <div class="flex items-center justify-between max-w-7xl mx-auto">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-exclamation-triangle text-yellow-600"></i>
+                    <span class="text-yellow-800">Ditemukan draft yang belum disimpan dari sesi sebelumnya.</span>
+                </div>
+                <div class="flex gap-2">
+                    <button id="restoreDraft" class="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700">Pulihkan</button>
+                    <button id="discardDraft" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Buang</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form id="newsForm" class="p-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Title -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">Judul Berita *</label>
+                        <input type="text" id="judul" name="judul" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                            placeholder="Masukkan judul berita yang menarik">
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <label for="ringkasan" class="block text-sm font-medium text-gray-700 mb-2">Ringkasan</label>
+                        <textarea id="ringkasan" name="ringkasan" rows="3"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Ringkasan singkat berita (akan ditampilkan di halaman daftar berita)"></textarea>
+                    </div>
+
+                    <!-- Content Editor -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <label for="isi_berita" class="block text-sm font-medium text-gray-700 mb-2">Isi Berita *</label>
+                        <textarea id="isi_berita" name="isi_berita"></textarea>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <!-- Publish Options -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">Publikasi</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <select id="status" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="draft">Draft</option>
+                                    <option value="publish">Publikasi</option>
+                                </select>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="featured" name="featured" class="w-4 h-4 text-blue-600 rounded">
+                                <label for="featured" class="text-sm text-gray-700">Tandai sebagai Featured</label>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex gap-2">
+                            <button type="button" onclick="autoSubmitNews()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg">
+                                <i class="fas fa-save mr-2"></i>Simpan
+                            </button>
+                            <button type="button" id="previewBtn" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">Kategori</h3>
+                        <select id="id_kategori" name="id_kategori" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                    </div>
+
+                    <!-- Featured Image -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">Gambar Utama</h3>
+                        
+                        <div id="imagePreview" class="mb-4 hidden">
+                            <img id="previewImg" src="" alt="Preview" class="w-full h-40 object-cover rounded-lg">
+                            <button type="button" id="removeImage" class="mt-2 text-red-600 text-sm hover:underline">
+                                <i class="fas fa-trash mr-1"></i>Hapus gambar
+                            </button>
+                        </div>
+
+                        <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
+                            <input type="file" id="imageInput" accept="image/*" class="hidden">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-500">Klik atau drag & drop gambar</p>
+                            <p class="text-xs text-gray-400 mt-1">Max 5MB, akan dikonversi ke WebP</p>
+                        </div>
+
+                        <input type="hidden" id="gambar_utama" name="gambar_utama">
+
+                        <div class="mt-4">
+                            <label for="alt_gambar" class="block text-sm font-medium text-gray-700 mb-2">Alt Text</label>
+                            <input type="text" id="alt_gambar" name="alt_gambar"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                placeholder="Deskripsi gambar untuk aksesibilitas">
+                        </div>
+                    </div>
+
+                    <!-- SEO -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">SEO</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                                <textarea id="meta_description" name="meta_description" rows="2" maxlength="160"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                    placeholder="Deskripsi untuk mesin pencari (max 160 karakter)"></textarea>
+                                <p class="text-xs text-gray-400 mt-1"><span id="metaCount">0</span>/160</p>
+                            </div>
+
+                            <div>
+                                <label for="tags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                                <input type="text" id="tags" name="tags"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                    placeholder="gempa, bmkg, cuaca (pisahkan dengan koma)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="assets/js/common.js"></script>
+    <script>
+        checkAuth();
+
+        let selectedImageFile = null;
+
+        tinymce.init({
+            selector: '#isi_berita',
+            height: 500,
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.6; }'
+        });
+
+        async function loadCategories() {
+            try {
+                const response = await fetchAPI('api/categories.php');
+                if (response.success) {
+                    const select = document.getElementById('id_kategori');
+                    response.data.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.id_kategori;
+                        option.textContent = cat.nama_kategori;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        function getTinyMCEContentSafe() {
+            if (typeof tinymce !== 'undefined' && tinymce.activeEditor) {
+                return tinymce.activeEditor.getContent() || '';
+            }
+            const instance = tinymce?.get('isi_berita');
+            return instance ? (instance.getContent() || '') : '';
+        }
+
+        function waitForTinyMCEContent(maxRetry = 20, interval = 150) {
+            return new Promise((resolve) => {
+                let retries = 0;
+                const timer = setInterval(() => {
+                    retries += 1;
+                    const content = getTinyMCEContentSafe();
+                    if (content !== '' || retries >= maxRetry) {
+                        clearInterval(timer);
+                        resolve(content);
+                    }
+                }, interval);
+            });
+        }
+
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removeImageBtn = document.getElementById('removeImage');
+        const hiddenGambarUtama = document.getElementById('gambar_utama');
+
+        function showImagePreview(file) {
+            if (!file || !file.type.startsWith('image/')) {
+                showToast('File harus berupa gambar', 'error');
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Ukuran gambar maksimal 5MB', 'error');
+                return;
+            }
+
+            selectedImageFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                imagePreview.classList.remove('hidden');
+                uploadArea.classList.add('hidden');
+                hiddenGambarUtama.value = file.name;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        uploadArea.addEventListener('click', () => imageInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('border-blue-500', 'bg-blue-50');
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+            if (e.dataTransfer.files.length) {
+                showImagePreview(e.dataTransfer.files[0]);
+            }
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                showImagePreview(e.target.files[0]);
+            }
+        });
+
+        removeImageBtn.addEventListener('click', () => {
+            selectedImageFile = null;
+            imageInput.value = '';
+            hiddenGambarUtama.value = '';
+            imagePreview.classList.add('hidden');
+            uploadArea.classList.remove('hidden');
+            previewImg.src = '';
+        });
+
+        document.getElementById('meta_description').addEventListener('input', function () {
+            document.getElementById('metaCount').textContent = this.value.length;
+        });
+
+        window.autoSubmitNews = async function () {
+            const judul = document.getElementById('judul').value.trim();
+            const ringkasan = document.getElementById('ringkasan').value.trim();
+            const idKategori = document.getElementById('id_kategori').value;
+            const status = document.getElementById('status').value;
+            const featured = document.getElementById('featured').checked ? '1' : '0';
+            const altGambar = document.getElementById('alt_gambar').value.trim();
+            const metaDescription = document.getElementById('meta_description').value.trim();
+            const tags = document.getElementById('tags').value.trim();
+
+            let isiBerita = getTinyMCEContentSafe();
+            if (!isiBerita) {
+                isiBerita = await waitForTinyMCEContent();
+            }
+
+            if (!judul) {
+                showToast('Judul wajib diisi', 'error');
+                return;
+            }
+            if (!idKategori) {
+                showToast('Kategori wajib dipilih', 'error');
+                return;
+            }
+            if (!isiBerita || isiBerita.replace(/<[^>]*>/g, '').trim() === '') {
+                showToast('Isi berita wajib diisi', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('judul', judul);
+            formData.append('ringkasan', ringkasan);
+            formData.append('isi_berita', isiBerita);
+            formData.append('id_kategori', idKategori);
+            formData.append('status', status);
+            formData.append('featured', featured);
+            formData.append('alt_gambar', altGambar);
+            formData.append('meta_description', metaDescription);
+            formData.append('tags', tags);
+
+            if (selectedImageFile) {
+                formData.append('gambar', selectedImageFile);
+            }
+
+            try {
+                const response = await fetch('api/news-create.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('Berita berhasil disimpan', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'news.html';
+                    }, 900);
+                } else {
+                    showToast(data.message || 'Gagal menyimpan berita', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan koneksi', 'error');
+            }
+        };
+
+        loadCategories();
+    </script>
+</body>
+</html>

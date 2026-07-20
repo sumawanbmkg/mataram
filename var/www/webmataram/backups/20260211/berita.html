@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita Terkini - Stasiun Geofisika Mataram | BMKG NTB</title>
+    <meta name="description"
+        content="Berita terkini seputar gempa bumi, cuaca, tsunami, dan informasi meteorologi dari Stasiun Geofisika Mataram BMKG Nusa Tenggara Barat.">
+    <meta name="keywords"
+        content="berita bmkg, gempa bumi, cuaca, tsunami, meteorologi, ntb, mataram, berita terkini, informasi bmkg">
+    <meta name="author" content="Stasiun Geofisika Mataram - BMKG">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geofisika-mataram.bmkg.go.id/berita.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://geofisika-mataram.bmkg.go.id/berita.html">
+    <meta property="og:title" content="Berita Terkini - Stasiun Geofisika Mataram BMKG">
+    <meta property="og:description"
+        content="Berita terkini seputar gempa bumi, cuaca, tsunami, dan informasi meteorologi dari BMKG Nusa Tenggara Barat.">
+    <meta property="og:image" content="https://geofisika-mataram.bmkg.go.id/images/og-berita.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Berita Terkini - Stasiun Geofisika Mataram BMKG">
+    <meta property="twitter:description"
+        content="Berita terkini seputar gempa bumi, cuaca, tsunami, dan informasi meteorologi dari BMKG.">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "Stasiun Geofisika Mataram - BMKG",
+      "description": "Berita terkini dari Stasiun Geofisika Mataram BMKG",
+      "url": "https://geofisika-mataram.bmkg.go.id/berita.html",
+      "logo": "https://www.bmkg.go.id/images/profil/logo-bmkg.png",
+      "sameAs": [
+        "https://facebook.com/stasiungeofisika.mataram",
+        "https://twitter.com/stageof_mataram",
+        "https://instagram.com/infogempa_ntb",
+        "https://youtube.com/@stasiungeofisikamataram7031"
+      ]
+    }
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e3a8a">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+
+    <!-- External Resources -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e40af",
+                        "secondary": "#0ea5e9",
+                        "accent": "#f59e0b",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                        "bmkg-blue": "#1e3a8a",
+                        "bmkg-green": "#059669"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-white transition-colors duration-300">
+    <!-- Skip Link -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-bmkg-blue text-white px-4 py-2 rounded-lg z-50 font-medium">
+        Loncat ke konten utama
+    </a>
+
+    <!-- Header -->
+    <header
+        class="bg-white dark:bg-slate-900 shadow-lg sticky top-0 z-40 border-b border-slate-200 dark:border-slate-700"
+        role="banner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo dan Nama -->
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <div class="flex items-center justify-center w-12 h-12 bg-white rounded-lg p-1">
+                            <img src="https://www.bmkg.go.id/images/profil/logo-bmkg.png" alt="Logo BMKG"
+                                class="w-full h-full object-contain" crossorigin="anonymous" />
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold text-bmkg-blue dark:text-blue-400">
+                                Stasiun Geofisika Mataram
+                            </h1>
+                            <p class="text-xs text-slate-600 dark:text-slate-400">
+                                BMKG - Nusa Tenggara Barat
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8" role="navigation">
+                    <a href="index.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Beranda</a>
+                    <a href="gempabumi.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Gempabumi
+                        Dirasakan</a>
+                    <a href="tsunami.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Tsunami</a>
+                    <a href="petir.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Petir</a>
+                    <a href="waktu.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Tanda Waktu</a>
+                    <a href="magnet-bumi.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Magnet
+                        Bumi</a>
+                    <a href="mitigasi.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Mitigasi</a>
+                    <a href="berita.html" class="text-bmkg-blue font-medium">Berita</a>
+                    <a href="kontak.html" class="text-slate-600 hover:text-bmkg-blue transition-colors">Kontak</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-3">
+                    <button
+                        class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                        id="theme-toggle">
+                        <span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
+                    </button>
+                    <button id="mobile-menu-btn"
+                        class="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                        <span class="material-symbols-outlined text-xl">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="md:hidden hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
+            <div class="px-4 py-2 space-y-1">
+                <a href="index.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Beranda</a>
+                <a href="gempabumi.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Gempabumi
+                    Dirasakan</a>
+                <a href="tsunami.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Tsunami</a>
+                <a href="petir.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Petir</a>
+                <a href="waktu.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Tanda
+                    Waktu</a>
+                <a href="magnet-bumi.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Magnet
+                    Bumi</a>
+                <a href="mitigasi.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Mitigasi</a>
+                <a href="berita.html"
+                    class="block px-3 py-2 text-bmkg-blue font-medium rounded hover:bg-slate-50 dark:hover:bg-slate-800">Berita</a>
+                <a href="kontak.html"
+                    class="block px-3 py-2 text-slate-600 hover:text-bmkg-blue rounded hover:bg-slate-50 dark:hover:bg-slate-800">Kontak</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="bg-slate-50 dark:bg-slate-800 py-3" aria-label="Breadcrumb">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ol class="flex items-center space-x-2 text-sm">
+                <li>
+                    <a href="index.html" class="text-slate-600 dark:text-slate-400 hover:text-bmkg-blue">
+                        <span class="material-symbols-outlined text-lg">home</span>
+                    </a>
+                </li>
+                <li class="text-slate-400">/</li>
+                <li class="text-slate-900 dark:text-white font-medium" aria-current="page">Berita</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                <span class="material-symbols-outlined text-4xl align-middle mr-2">newspaper</span>
+                Berita Terkini
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400">
+                Informasi terkini dari Stasiun Geofisika Mataram BMKG
+            </p>
+        </div>
+
+        <!-- Filter dan Search -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="flex flex-col md:flex-row gap-4 flex-1">
+                    <div class="relative flex-1">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-slate-400">search</span>
+                        </span>
+                        <input type="text" id="searchInput" placeholder="Cari berita..."
+                            class="w-full pl-10 pr-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <select id="categoryFilter"
+                        class="px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        <option value="">Semua Kategori</option>
+                        <option value="gempa-bumi">Gempa Bumi</option>
+                        <option value="cuaca">Cuaca</option>
+                        <option value="tsunami">Tsunami</option>
+                        <option value="teknologi">Teknologi</option>
+                        <option value="edukasi">Edukasi</option>
+                    </select>
+                </div>
+                <button onclick="searchNews()"
+                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined">search</span>
+                    Cari
+                </button>
+            </div>
+        </div>
+
+        <!-- Featured News -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-2xl">featured_star</span>
+                Berita Utama
+            </h2>
+            <div id="featuredNews" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Featured news akan dimuat di sini -->
+            </div>
+        </section>
+
+        <!-- Latest News -->
+        <section>
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="material-symbols-outlined text-2xl">breaking_news</span>
+                    Berita Terbaru
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span class="text-slate-600 dark:text-slate-400 text-sm">Urutkan:</span>
+                    <select id="sortOrder" onchange="loadNews()"
+                        class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        <option value="newest">Terbaru</option>
+                        <option value="oldest">Terlama</option>
+                        <option value="popular">Terpopuler</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="newsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- News cards akan dimuat di sini -->
+            </div>
+
+            <!-- Loading indicator -->
+            <div id="loadingIndicator" class="text-center py-12 hidden">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Memuat berita...</p>
+            </div>
+
+            <!-- Load more button -->
+            <div class="text-center mt-10">
+                <button id="loadMoreBtn" onclick="loadMoreNews()"
+                    class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2 mx-auto">
+                    <span class="material-symbols-outlined">expand_more</span>
+                    Muat Lebih Banyak
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white" role="contentinfo">
+        <!-- Main Footer Content -->
+        <div class="bg-gradient-to-r from-bmkg-blue to-blue-800 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Logo & Organization Info -->
+                    <div class="lg:col-span-1">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="flex items-center justify-center w-16 h-16 bg-white rounded-lg p-2">
+                                <img src="https://www.bmkg.go.id/images/profil/logo-bmkg.png" alt="Logo BMKG"
+                                    class="w-full h-full object-contain" crossorigin="anonymous" />
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Stasiun Geofisika Mataram</h3>
+                                <p class="text-blue-100 text-sm">BMKG - Nusa Tenggara Barat</p>
+                            </div>
+                        </div>
+                        <p class="text-blue-100 mb-6 text-sm leading-relaxed">
+                            Unit Pelaksana Teknis BMKG yang bertugas melakukan monitoring dan analisis geofisika untuk
+                            wilayah Nusa Tenggara Barat dengan teknologi terdepan.
+                        </p>
+
+                        <!-- Social Media Links -->
+                        <div class="flex space-x-4">
+                            <a href="https://facebook.com/stasiungeofisika.mataram" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
+                                aria-label="Facebook Stasiun Geofisika Mataram">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://twitter.com/stageof_mataram" target="_blank" rel="noopener noreferrer"
+                                class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
+                                aria-label="Twitter Stasiun Geofisika Mataram">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                            <a href="https://instagram.com/infogempa_ntb" target="_blank" rel="noopener noreferrer"
+                                class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
+                                aria-label="Instagram Stasiun Geofisika Mataram">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.418-3.323c.875-.875 2.026-1.297 3.323-1.297s2.448.422 3.323 1.297c.928.875 1.418 2.026 1.418 3.323s-.49 2.448-1.418 3.244c-.875.807-2.026 1.297-3.323 1.297zm7.83-9.781c-.49 0-.928-.422-.928-.928 0-.49.438-.928.928-.928.49 0 .928.438.928.928 0 .506-.438.928-.928.928zM12.017 7.356c-2.79 0-5.091 2.301-5.091 5.091s2.301 5.091 5.091 5.091 5.091-2.301 5.091-5.091-2.301-5.091-5.091-5.091z" />
+                                </svg>
+                            </a>
+                            <a href="https://youtube.com/@stasiungeofisikamataram7031" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
+                                aria-label="YouTube Stasiun Geofisika Mataram">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Layanan Geofisika BMKG -->
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">isika BMKGLayanan Geof</h4>
+                        <ul class="space-y-3 text-blue-100">
+                            <li>
+                                <a href="berita.html" target="_blank" rel="noopener noreferrer"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">newspaper</span>
+                                    Berita Terbaru
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://data.bmkg.go.id/" target="_blank" rel="noopener noreferrer"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">analytics</span>
+                                    Data & Statistik
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://apps.bmkg.go.id/" target="_blank" rel="noopener noreferrer"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">download</span>
+                                    Unduh Aplikasi
+                                </a>
+                            </li>
+                            <li>
+                                <a href="faq.html" target="_blank" rel="noopener noreferrer"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">help</span>
+                                    FAQ
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/playlist?list=PL-k2VTQGAjdfzYGzV8Bp-GDgJUvb6eqbd"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">school</span>
+                                    Edukasi Publik
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Informasi Gempa -->
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Informasi Gempa</h4>
+                        <ul class="space-y-3 text-blue-100">
+                            <li>
+                                <a href="gempabumi.html"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">vibration</span>
+                                    Gempabumi Dirasakan
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tsunami.html"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">tsunami</span>
+                                    Peringatan Tsunami
+                                </a>
+                            </li>
+                            <li>
+                                <a href="magnet-bumi.html"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">explore</span>
+                                    Magnet Bumi
+                                </a>
+                            </li>
+                            <li>
+                                <a href="waktu.html" class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">schedule</span>
+                                    Tanda Waktu
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mitigasi.html"
+                                    class="hover:text-white transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">security</span>
+                                    Mitigasi
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Kontak & Darurat -->
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Kontak & Darurat</h4>
+                        <ul class="space-y-3 text-blue-100">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-sm mt-0.5">location_on</span>
+                                <span>Jl. Majapahit No. 62<br>Mataram, Nusa Tenggara Barat</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">phone</span>
+                                <a href="tel:+62370642342" class="hover:text-white transition-colors">(+62) 370
+                                    642342</a>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">email</span>
+                                <a href="mailto:geofisika.mataram@bmkg.go.id"
+                                    class="hover:text-white transition-colors">geofisika.mataram@bmkg.go.id</a>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">emergency</span>
+                                <span class="text-red-300 font-medium"> Hotline Darurat: 112</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="bg-slate-950 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-slate-400 text-sm">
+                        &copy; 2024 Stasiun Geofisika Mataram - BMKG. Hak cipta dilindungi undang-undang.
+                    </p>
+                    <div class="flex items-center gap-4 text-sm text-slate-400">
+                        <a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a>
+                        <span>|</span>
+                        <a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
+    <script src="berita.js" defer></script>
+    <script>
+        // Theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Load theme from localStorage
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+
+</html>

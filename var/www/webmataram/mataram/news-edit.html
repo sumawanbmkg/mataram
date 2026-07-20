@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Edit Berita - Admin Panel BMKG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tiny.cloud/1/jljx9kp2juekpesnn6gh39njtu0phn67r95fe819a0u6ye1y/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar (same as news-create.html) -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-slate-800 text-white transform -translate-x-full lg:translate-x-0 transition-transform z-50">
+        <div class="p-4 border-b border-slate-700">
+            <div class="flex items-center gap-3">
+                <img src="../logo-bmkg.png" alt="BMKG" class="h-10">
+                <div>
+                    <h1 class="font-bold">Admin Panel</h1>
+                    <p class="text-xs text-slate-400">BMKG Mataram</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-home w-5"></i><span>Dashboard</span></a></li>
+                <li><a href="news.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white"><i class="fas fa-newspaper w-5"></i><span>Kelola Berita</span></a></li>
+                <li><a href="news-create.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-plus-circle w-5"></i><span>Tulis Berita</span></a></li>
+                <li id="usersMenu" class="hidden"><a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-users w-5"></i><span>Kelola User</span></a></li>
+                <li><a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-user-cog w-5"></i><span>Profil & MFA</span></a></li>
+            </ul>
+        </nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+            <button id="logoutBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 transition w-full"><i class="fas fa-sign-out-alt w-5"></i><span>Logout</span></button>
+        </div>
+    </aside>
+
+    <button id="menuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-slate-800 text-white p-3 rounded-lg"><i class="fas fa-bars"></i></button>
+
+    <main class="lg:ml-64 min-h-screen">
+        <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">Edit Berita</h2>
+                <p class="text-sm text-gray-500">Perbarui artikel berita</p>
+            </div>
+            <div id="autoSaveStatus" class="text-sm text-gray-500"><i class="fas fa-cloud"></i> <span>Siap</span></div>
+        </header>
+
+        <form id="newsForm" class="p-6">
+            <input type="hidden" id="berita_id">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">Judul Berita *</label>
+                        <input type="text" id="judul" name="judul" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg" placeholder="Masukkan judul berita">
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <label for="ringkasan" class="block text-sm font-medium text-gray-700 mb-2">Ringkasan</label>
+                        <textarea id="ringkasan" name="ringkasan" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ringkasan singkat berita"></textarea>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <label for="isi_berita" class="block text-sm font-medium text-gray-700 mb-2">Isi Berita *</label>
+                        <textarea id="isi_berita" name="isi_berita"></textarea>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">Publikasi</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <select id="status" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="draft">Draft</option>
+                                    <option value="publish">Publikasi</option>
+                                    <option value="archived">Arsip</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="featured" name="featured" class="w-4 h-4 text-blue-600 rounded">
+                                <label for="featured" class="text-sm text-gray-700">Tandai sebagai Featured</label>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex gap-2">
+                            <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"><i class="fas fa-save mr-2"></i>Update</button>
+                            <a href="news.html" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center"><i class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">Kategori</h3>
+                        <select id="id_kategori" name="id_kategori" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">Gambar Utama</h3>
+                        <div id="imagePreview" class="mb-4 hidden">
+                            <img id="previewImg" src="" alt="Preview" class="w-full h-40 object-cover rounded-lg">
+                            <button type="button" id="removeImage" class="mt-2 text-red-600 text-sm hover:underline"><i class="fas fa-trash mr-1"></i>Hapus gambar</button>
+                        </div>
+                        <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
+                            <input type="file" id="imageInput" accept="image/*" class="hidden">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-500">Klik atau drag & drop gambar</p>
+                        </div>
+                        <input type="hidden" id="gambar_utama" name="gambar_utama">
+                        <div class="mt-4">
+                            <label for="alt_gambar" class="block text-sm font-medium text-gray-700 mb-2">Alt Text</label>
+                            <input type="text" id="alt_gambar" name="alt_gambar" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Deskripsi gambar">
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-gray-800 mb-4">SEO</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                                <textarea id="meta_description" name="meta_description" rows="2" maxlength="160" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Deskripsi untuk mesin pencari"></textarea>
+                                <p class="text-xs text-gray-400 mt-1"><span id="metaCount">0</span>/160</p>
+                            </div>
+                            <div>
+                                <label for="tags" class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                                <input type="text" id="tags" name="tags" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="gempa, bmkg, cuaca">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="assets/js/common.js"></script>
+    <script>
+        checkAuth();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const newsId = urlParams.get('id');
+
+        if (!newsId) {
+            window.location.href = 'news.html';
+        }
+
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: '#isi_berita',
+            height: 500,
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            images_upload_handler: async (blobInfo, progress) => {
+                const formData = new FormData();
+                formData.append('image', blobInfo.blob(), blobInfo.filename());
+                formData.append('csrf_token', csrfToken);
+                const response = await fetch('api/upload.php', { method: 'POST', credentials: 'include', body: formData });
+                const data = await response.json();
+                if (data.success) return data.location;
+                throw new Error(data.message || 'Upload failed');
+            },
+            automatic_uploads: true,
+            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.6; }'
+        });
+
+        // Load categories
+        async function loadCategories() {
+            try {
+                const response = await fetchAPI('api/categories.php');
+                if (response.success) {
+                    const select = document.getElementById('id_kategori');
+                    response.data.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.id_kategori;
+                        option.textContent = cat.nama_kategori;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        // Load news data
+        async function loadNews() {
+            try {
+                const response = await fetchAPI(`api/news-detail.php?id=${newsId}`);
+                if (response.success && response.data) {
+                    const news = response.data;
+                    document.getElementById('berita_id').value = news.id_berita;
+                    document.getElementById('judul').value = news.judul || '';
+                    document.getElementById('ringkasan').value = news.ringkasan || '';
+                    document.getElementById('id_kategori').value = news.id_kategori || '';
+                    document.getElementById('status').value = news.status || 'draft';
+                    document.getElementById('featured').checked = news.featured == 1;
+                    document.getElementById('meta_description').value = news.meta_description || '';
+                    document.getElementById('tags').value = news.tags || '';
+                    document.getElementById('alt_gambar').value = news.alt_gambar || '';
+                    document.getElementById('metaCount').textContent = (news.meta_description || '').length;
+
+                    const tinyInterval = setInterval(() => {
+                        const editor = tinymce.get('isi_berita');
+                        if (editor) {
+                            editor.setContent(news.isi_berita || '');
+                            clearInterval(tinyInterval);
+                        }
+                    }, 150);
+
+                    if (news.gambar_utama) {
+                        document.getElementById('gambar_utama').value = news.gambar_utama;
+                        document.getElementById('previewImg').src = '../images/news/' + news.gambar_utama;
+                        document.getElementById('imagePreview').classList.remove('hidden');
+                        document.getElementById('uploadArea').classList.add('hidden');
+                    }
+                } else {
+                    showToast('Berita tidak ditemukan', 'error');
+                    setTimeout(() => window.location.href = 'news.html', 1500);
+                }
+            } catch (error) {
+                showToast('Gagal memuat berita', 'error');
+            }
+        }
+
+        // Image upload
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+
+        uploadArea.addEventListener('click', () => imageInput.click());
+        uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('border-blue-500', 'bg-blue-50'); });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('border-blue-500', 'bg-blue-50'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+            if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files[0]);
+        });
+        imageInput.addEventListener('change', (e) => { if (e.target.files.length) handleImageUpload(e.target.files[0]); });
+
+        let selectedImageFile = null;
+        async function handleImageUpload(file) {
+            if (!file.type.startsWith('image/')) { showToast('File harus berupa gambar', 'error'); return; }
+            if (file.size > 5 * 1024 * 1024) { showToast('Ukuran gambar maksimal 5MB', 'error'); return; }
+
+            selectedImageFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('imagePreview').classList.remove('hidden');
+                uploadArea.classList.add('hidden');
+                document.getElementById('gambar_utama').value = file.name;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.getElementById('removeImage').addEventListener('click', () => {
+            document.getElementById('gambar_utama').value = '';
+            document.getElementById('imagePreview').classList.add('hidden');
+            uploadArea.classList.remove('hidden');
+            imageInput.value = '';
+        });
+
+        document.getElementById('meta_description').addEventListener('input', function() {
+            document.getElementById('metaCount').textContent = this.value.length;
+        });
+
+        // Form submit
+        document.getElementById('newsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            let isiBerita = tinymce.activeEditor ? tinymce.activeEditor.getContent() : '';
+            if (!isiBerita) {
+                const editor = tinymce.get('isi_berita');
+                isiBerita = editor ? editor.getContent() : '';
+            }
+
+            const judul = document.getElementById('judul').value.trim();
+            if (!judul) { showToast('Judul berita wajib diisi', 'error'); return; }
+            if (!isiBerita || isiBerita.replace(/<[^>]*>/g, '').trim() === '') { showToast('Isi berita wajib diisi', 'error'); return; }
+
+            const formData = new FormData();
+            formData.append('id_berita', newsId);
+            formData.append('judul', judul);
+            formData.append('ringkasan', document.getElementById('ringkasan').value);
+            formData.append('isi_berita', isiBerita);
+            formData.append('id_kategori', document.getElementById('id_kategori').value);
+            formData.append('status', document.getElementById('status').value);
+            formData.append('featured', document.getElementById('featured').checked ? '1' : '0');
+            formData.append('gambar_utama_lama', document.getElementById('gambar_utama').value);
+            formData.append('alt_gambar', document.getElementById('alt_gambar').value);
+            formData.append('meta_description', document.getElementById('meta_description').value);
+            formData.append('tags', document.getElementById('tags').value);
+
+            if (selectedImageFile) {
+                formData.append('gambar', selectedImageFile);
+            }
+
+            try {
+                const response = await fetch('api/news-update.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('Berita berhasil diperbarui', 'success');
+                    setTimeout(() => window.location.href = 'news.html', 1000);
+                } else {
+                    showToast(data.message || 'Gagal memperbarui berita', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        });
+
+        // Initialize
+        loadCategories().then(() => loadNews());
+    </script>
+</body>
+</html>

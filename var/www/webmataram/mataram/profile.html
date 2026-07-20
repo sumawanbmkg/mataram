@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Profil & MFA - Admin Panel BMKG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-slate-800 text-white transform -translate-x-full lg:translate-x-0 transition-transform z-50">
+        <div class="p-4 border-b border-slate-700">
+            <div class="flex items-center gap-3">
+                <img src="../logo-bmkg.png" alt="BMKG" class="h-10">
+                <div>
+                    <h1 class="font-bold">Admin Panel</h1>
+                    <p class="text-xs text-slate-400">BMKG Mataram</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-home w-5"></i><span>Dashboard</span></a></li>
+                <li><a href="news.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-newspaper w-5"></i><span>Kelola Berita</span></a></li>
+                <li><a href="news-create.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-plus-circle w-5"></i><span>Tulis Berita</span></a></li>
+                <li id="usersMenu" class="hidden"><a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"><i class="fas fa-users w-5"></i><span>Kelola User</span></a></li>
+                <li><a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white"><i class="fas fa-user-cog w-5"></i><span>Profil & MFA</span></a></li>
+            </ul>
+        </nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+            <button id="logoutBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 transition w-full"><i class="fas fa-sign-out-alt w-5"></i><span>Logout</span></button>
+        </div>
+    </aside>
+
+    <button id="menuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-slate-800 text-white p-3 rounded-lg"><i class="fas fa-bars"></i></button>
+
+    <main class="lg:ml-64 min-h-screen">
+        <header class="bg-white shadow-sm p-4">
+            <h2 class="text-xl font-bold text-gray-800">Profil & Keamanan</h2>
+            <p class="text-sm text-gray-500">Kelola profil dan pengaturan keamanan akun Anda</p>
+        </header>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Profile Section -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fas fa-user text-blue-600"></i>
+                        Informasi Profil
+                    </h3>
+                    
+                    <form id="profileForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                            <input type="text" id="nama_lengkap" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                            <input type="text" id="username" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                            <textarea id="bio" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
+                            <i class="fas fa-save mr-2"></i>Simpan Profil
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Password Section -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fas fa-key text-yellow-600"></i>
+                        Ubah Password
+                    </h3>
+                    
+                    <form id="passwordForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password Baru</label>
+                            <input type="password" id="new_password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" minlength="8">
+                            <p class="text-xs text-gray-500 mt-1">Minimal 8 karakter</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+                            <input type="password" id="confirm_password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg">
+                            <i class="fas fa-key mr-2"></i>Ubah Password
+                        </button>
+                    </form>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <p class="text-sm text-blue-800">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Password dienkripsi dengan algoritma ARGON2ID untuk keamanan maksimal.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- MFA Section -->
+                <div class="bg-white rounded-xl shadow-sm p-6 lg:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fas fa-shield-alt text-green-600"></i>
+                        Multi-Factor Authentication (MFA)
+                    </h3>
+
+                    <div id="mfaStatus" class="mb-6">
+                        <!-- Status will be loaded here -->
+                    </div>
+
+                    <!-- MFA Disabled State -->
+                    <div id="mfaDisabled" class="hidden">
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-exclamation-triangle text-yellow-600 mt-1"></i>
+                                <div>
+                                    <p class="font-medium text-yellow-800">MFA Belum Aktif</p>
+                                    <p class="text-sm text-yellow-700 mt-1">Aktifkan MFA untuk menambah lapisan keamanan ekstra pada akun Anda.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="setupMfaBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg">
+                            <i class="fas fa-shield-alt mr-2"></i>Aktifkan MFA
+                        </button>
+                    </div>
+
+                    <!-- MFA Setup State -->
+                    <div id="mfaSetup" class="hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-medium text-gray-800 mb-4">1. Scan QR Code</h4>
+                                <p class="text-sm text-gray-600 mb-4">Gunakan aplikasi authenticator seperti Google Authenticator atau Microsoft Authenticator untuk scan QR code berikut:</p>
+                                <div id="qrCode" class="bg-white p-4 border rounded-lg inline-block">
+                                    <!-- QR Code will be generated here -->
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">Atau masukkan kode manual: <code id="mfaSecret" class="bg-gray-100 px-2 py-1 rounded"></code></p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800 mb-4">2. Verifikasi Kode</h4>
+                                <p class="text-sm text-gray-600 mb-4">Masukkan 6 digit kode dari aplikasi authenticator untuk mengaktifkan MFA:</p>
+                                <form id="verifyMfaForm" class="space-y-4">
+                                    <input type="text" id="mfaCode" maxlength="6" pattern="[0-9]{6}" 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg text-center text-2xl tracking-widest"
+                                        placeholder="000000">
+                                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg">
+                                        Verifikasi & Aktifkan
+                                    </button>
+                                    <button type="button" id="cancelMfaSetup" class="w-full border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50">
+                                        Batal
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MFA Enabled State -->
+                    <div id="mfaEnabled" class="hidden">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-600 mt-1"></i>
+                                <div>
+                                    <p class="font-medium text-green-800">MFA Aktif</p>
+                                    <p class="text-sm text-green-700 mt-1">Akun Anda dilindungi dengan autentikasi dua faktor.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="disableMfaBtn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg">
+                            <i class="fas fa-times mr-2"></i>Nonaktifkan MFA
+                        </button>
+                    </div>
+
+                    <!-- Backup Codes -->
+                    <div id="backupCodes" class="hidden mt-6 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-medium text-gray-800 mb-2">Kode Cadangan</h4>
+                        <p class="text-sm text-gray-600 mb-4">Simpan kode-kode ini di tempat yang aman. Gunakan jika Anda kehilangan akses ke aplikasi authenticator.</p>
+                        <div id="backupCodesList" class="grid grid-cols-2 md:grid-cols-5 gap-2 font-mono text-sm"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script>
+        checkAuth();
+
+        let currentUserId = null;
+
+        // Load profile
+        async function loadProfile() {
+            try {
+                const response = await fetchAPI('api/users.php?id=current');
+                if (response.success && response.data) {
+                    const user = response.data;
+                    currentUserId = user.id_penulis;
+                    document.getElementById('nama_lengkap').value = user.nama_lengkap || '';
+                    document.getElementById('username').value = user.username || '';
+                    document.getElementById('email').value = user.email || '';
+                    document.getElementById('bio').value = user.bio || '';
+
+                    // Update MFA status
+                    updateMfaStatus(user.mfa_enabled);
+                }
+            } catch (error) {
+                showToast('Gagal memuat profil', 'error');
+            }
+        }
+
+        function updateMfaStatus(enabled) {
+            document.getElementById('mfaDisabled').classList.toggle('hidden', enabled);
+            document.getElementById('mfaEnabled').classList.toggle('hidden', !enabled);
+            document.getElementById('mfaSetup').classList.add('hidden');
+        }
+
+        // Profile form
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetchAPI('api/users.php?id=' + currentUserId, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: currentUserId,
+                        nama_lengkap: document.getElementById('nama_lengkap').value,
+                        bio: document.getElementById('bio').value
+                    })
+                });
+                if (response.success) {
+                    showToast('Profil berhasil diperbarui', 'success');
+                } else {
+                    showToast(response.message || 'Gagal memperbarui profil', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        });
+
+        // Password form
+        document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (newPassword !== confirmPassword) {
+                showToast('Password tidak cocok', 'error');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                showToast('Password minimal 8 karakter', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetchAPI('api/users.php?id=' + currentUserId, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: currentUserId,
+                        password: newPassword
+                    })
+                });
+                if (response.success) {
+                    showToast('Password berhasil diubah', 'success');
+                    document.getElementById('passwordForm').reset();
+                } else {
+                    showToast(response.message || 'Gagal mengubah password', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        });
+
+        // MFA Setup
+        document.getElementById('setupMfaBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetchAPI('api/mfa.php', {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'setup' })
+                });
+                if (response.success) {
+                    document.getElementById('mfaSecret').textContent = response.secret;
+                    
+                    // Generate QR Code
+                    const qrContainer = document.getElementById('qrCode');
+                    qrContainer.innerHTML = '';
+                    QRCode.toCanvas(qrContainer, response.qr_url, { width: 200 }, (error) => {
+                        if (error) console.error(error);
+                    });
+
+                    document.getElementById('mfaDisabled').classList.add('hidden');
+                    document.getElementById('mfaSetup').classList.remove('hidden');
+                }
+            } catch (error) {
+                showToast('Gagal memulai setup MFA', 'error');
+            }
+        });
+
+        document.getElementById('cancelMfaSetup').addEventListener('click', () => {
+            document.getElementById('mfaSetup').classList.add('hidden');
+            document.getElementById('mfaDisabled').classList.remove('hidden');
+        });
+
+        // Verify MFA
+        document.getElementById('verifyMfaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const code = document.getElementById('mfaCode').value;
+
+            try {
+                const response = await fetchAPI('api/mfa.php', {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'enable', code: code })
+                });
+                if (response.success) {
+                    showToast('MFA berhasil diaktifkan', 'success');
+                    updateMfaStatus(true);
+
+                    // Show backup codes
+                    if (response.backup_codes) {
+                        const codesList = document.getElementById('backupCodesList');
+                        codesList.innerHTML = response.backup_codes.map(code => 
+                            `<span class="bg-white px-2 py-1 rounded border">${code}</span>`
+                        ).join('');
+                        document.getElementById('backupCodes').classList.remove('hidden');
+                    }
+                } else {
+                    showToast(response.message || 'Kode tidak valid', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        });
+
+        // Disable MFA
+        document.getElementById('disableMfaBtn').addEventListener('click', async () => {
+            if (!await confirmDialog('Apakah Anda yakin ingin menonaktifkan MFA? Ini akan mengurangi keamanan akun Anda.')) return;
+
+            try {
+                const response = await fetchAPI('api/mfa.php', {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'disable' })
+                });
+                if (response.success) {
+                    showToast('MFA berhasil dinonaktifkan', 'success');
+                    updateMfaStatus(false);
+                    document.getElementById('backupCodes').classList.add('hidden');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        });
+
+        // Auto-format MFA code input
+        document.getElementById('mfaCode').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Initialize
+        loadProfile();
+    </script>
+</body>
+</html>

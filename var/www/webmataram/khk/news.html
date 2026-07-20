@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Kelola Berita - Admin Panel BMKG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-800 flex items-center gap-3">
+            <div class="flex items-center gap-3">
+                <img src="../logo-bmkg.png" alt="BMKG" class="h-10">
+                <div>
+                    <h1 class="font-bold">Admin Panel</h1>
+                    <p class="text-xs text-indigo-400 font-medium tracking-wider uppercase mt-1">BMKG Mataram</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="p-4 flex-1 overflow-y-auto">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="news.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 rounded-xl">
+                        <i class="fas fa-newspaper w-5"></i>
+                        <span>Kelola Berita</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="news-create.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl">
+                        <i class="fas fa-plus-circle w-5"></i>
+                        <span>Tulis Berita</span>
+                    </a>
+                </li>
+                <li id="usersMenu" class="hidden">
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Kelola User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl">
+                        <i class="fas fa-user-cog w-5"></i>
+                        <span>Profil & MFA</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+            <button id="logoutBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 transition w-full">
+                <i class="fas fa-sign-out-alt w-5"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="menuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-slate-800 text-white p-3 rounded-lg">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 min-h-screen">
+        <!-- Header -->
+        <header class="glass-header sticky top-0 z-40 p-4 flex justify-between items-center lg:px-8">
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">Kelola Berita</h2>
+                <p class="text-sm text-gray-500">Daftar semua berita</p>
+            </div>
+            <a href="news-create.html" class="bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 transition-all text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fas fa-plus"></i>
+                <span class="hidden sm:inline">Tulis Berita</span>
+            </a>
+        </header>
+
+        <!-- Filters -->
+        <div class="p-6">
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow p-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <input type="text" id="searchInput" placeholder="Cari berita..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <select id="statusFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">Semua Status</option>
+                            <option value="publish">Dipublikasi</option>
+                            <option value="draft">Draft</option>
+                            <option value="archived">Diarsipkan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select id="categoryFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">Semua Kategori</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="resetFilters" class="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg">
+                            Reset Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Table -->
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Berita</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Views</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsTableBody" class="divide-y divide-gray-200">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                    <div class="text-sm text-gray-500">
+                        Menampilkan <span id="showingFrom">0</span> - <span id="showingTo">0</span> dari <span id="totalItems">0</span> berita
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="prevPage" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="pageInfo" class="px-3 py-1">1 / 1</span>
+                        <button id="nextPage" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50" disabled>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/common.js"></script>
+    <script>
+        checkAuth();
+
+        let currentPage = 1;
+        let totalPages = 1;
+        const limit = 10;
+
+        // Load categories
+        async function loadCategories() {
+            try {
+                const response = await fetchAPI('api/categories.php');
+                if (response.success) {
+                    const select = document.getElementById('categoryFilter');
+                    response.data.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.id_kategori;
+                        option.textContent = cat.nama_kategori;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        // Load news
+        async function loadNews() {
+            const search = document.getElementById('searchInput').value;
+            const status = document.getElementById('statusFilter').value;
+            const kategori = document.getElementById('categoryFilter').value;
+
+            const params = new URLSearchParams({
+                page: currentPage,
+                limit: limit
+            });
+            if (search) params.append('search', search);
+            if (status) params.append('status', status);
+            if (kategori) params.append('kategori', kategori);
+
+            try {
+                const response = await fetchAPI(`../api/manage_news.php?action=list`);
+                if (response.success) {
+                    renderNews(response.data);
+                    
+                }
+            } catch (error) {
+                console.error('Error loading news:', error);
+            }
+        }
+
+        function renderNews(news) {
+            const tbody = document.getElementById('newsTableBody');
+            
+            if (!news || news.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                            <i class="fas fa-newspaper text-4xl mb-2"></i>
+                            <p>Belum ada berita</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const statusColors = {
+                'publish': 'bg-green-100 text-green-800',
+                'draft': 'bg-yellow-100 text-yellow-800',
+                'archived': 'bg-gray-100 text-gray-800'
+            };
+
+            tbody.innerHTML = news.map(item => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            ${item.gambar_utama ? 
+                                `<img src="../images/news/${item.gambar_utama}" alt="" class="w-16 h-12 object-cover rounded">` :
+                                `<div class="w-16 h-12 bg-gray-200 rounded flex items-center justify-center"><i class="fas fa-image text-gray-400"></i></div>`
+                            }
+                            <div>
+                                <p class="font-medium text-gray-800">${truncate(item.judul, 50)}</p>
+                                <p class="text-sm text-gray-500">${item.penulis_nama || '-'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-600">${item.nama_kategori || '-'}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs rounded-full ${statusColors[item.status]}">${item.status}</span>
+                        ${item.featured ? '<i class="fas fa-star text-yellow-500 ml-1" title="Featured"></i>' : ''}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-600">${item.views || 0}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">${formatDate(item.tanggal_publish || item.created_at)}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <a href="news-edit.html?id=${item.id_berita}" class="p-2 text-indigo-600 hover:bg-blue-50 rounded" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button onclick="deleteNews(${item.id_berita})" class="p-2 text-red-600 hover:bg-red-50 rounded" title="Hapus">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            ${item.status === 'publish' ? 
+                                `<a href="../detail-berita.html?slug=${item.slug}" target="_blank" class="p-2 text-gray-600 hover:bg-gray-50 rounded" title="Lihat">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>` : ''
+                            }
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updatePagination(data) {
+            totalPages = data.total_pages;
+            const from = (data.page - 1) * data.limit + 1;
+            const to = Math.min(data.page * data.limit, data.total);
+
+            document.getElementById('showingFrom').textContent = data.total > 0 ? from : 0;
+            document.getElementById('showingTo').textContent = to;
+            document.getElementById('totalItems').textContent = data.total;
+            document.getElementById('pageInfo').textContent = `${data.page} / ${totalPages || 1}`;
+
+            document.getElementById('prevPage').disabled = data.page <= 1;
+            document.getElementById('nextPage').disabled = data.page >= totalPages;
+        }
+
+        async function deleteNews(id) {
+            if (!await confirmDialog('Apakah Anda yakin ingin menghapus berita ini?')) return;
+
+            try {
+                const response = await fetchAPI(`../api/manage_news.php?action=delete&id=${id}`, { method: 'DELETE' });
+                if (response.success) {
+                    showToast('Berita berhasil dihapus', 'success');
+                    loadNews();
+                } else {
+                    showToast(response.message || 'Gagal menghapus berita', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', debounce(() => {
+            currentPage = 1;
+            loadNews();
+        }, 300));
+
+        document.getElementById('statusFilter').addEventListener('change', () => {
+            currentPage = 1;
+            loadNews();
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', () => {
+            currentPage = 1;
+            loadNews();
+        });
+
+        document.getElementById('resetFilters').addEventListener('click', () => {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('categoryFilter').value = '';
+            currentPage = 1;
+            loadNews();
+        });
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadNews();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadNews();
+            }
+        });
+
+        // Initialize
+        loadCategories();
+        loadNews();
+    </script>
+    <script src="news-patch.js"></script>
+</body>
+</html>

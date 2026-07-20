@@ -1,0 +1,54 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    # 1. ROOT & INDEX
+    # Mengarah ke folder utama project Mataram Anda
+    root /var/www/webmataram;
+    index index.php index.html index.htm;
+
+    server_name _;
+
+    # 2. URL REWRITING (PENGGANTI .HTACCESS)
+    # Fitur: Clean URL, akses tanpa .html, dan support routing PHP
+    location / {
+        try_files $uri $uri.html $uri/ /index.php?$query_string;
+    }
+    # Menentukan bahwa error 404 akan diarahkan ke file 404.html
+    error_page 404 /404.html;
+
+    # Memastikan Nginx mencari file tersebut di root folder
+    location = /404.html {
+        internal;
+    }
+    # 3. KONFIGURASI PHP-FPM
+    # Menangani file .php agar dieksekusi oleh server
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # 4. KONFIGURASI PHPMYADMIN
+    # Tetap bisa diakses via http://ip-anda/phpmyadmin/
+    location /phpmyadmin {
+        root /usr/share;
+        index index.php index.html index.htm;
+        location ~ ^/phpmyadmin/(.+\.php)$ {
+            try_files $uri =404;
+            root /usr/share;
+            fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+        location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
+            root /usr/share;
+        }
+    }
+
+    # 5. SECURITY: BLOKIR AKSES FILE SENSITIF
+    location ~ /\.ht {
+        deny all;
+    }
+}

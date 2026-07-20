@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Kelola User - Admin Panel BMKG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-800 flex items-center gap-3">
+            <div class="flex items-center gap-3">
+                <img src="../logo-bmkg.png" alt="BMKG" class="h-10">
+                <div>
+                    <h1 class="font-bold">Admin Panel</h1>
+                    <p class="text-xs text-indigo-400 font-medium tracking-wider uppercase mt-1">BMKG Mataram</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="p-4 flex-1 overflow-y-auto">
+            <ul class="space-y-2">
+                <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl"><i class="fas fa-home w-5"></i><span>Dashboard</span></a></li>
+                <li><a href="news.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl"><i class="fas fa-newspaper w-5"></i><span>Kelola Berita</span></a></li>
+                <li><a href="news-create.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl"><i class="fas fa-plus-circle w-5"></i><span>Tulis Berita</span></a></li>
+                <li id="usersMenu"><a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 rounded-xl"><i class="fas fa-users w-5"></i><span>Kelola User</span></a></li>
+                <li><a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 rounded-xl"><i class="fas fa-user-cog w-5"></i><span>Profil & MFA</span></a></li>
+            </ul>
+        </nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+            <button id="logoutBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 transition w-full"><i class="fas fa-sign-out-alt w-5"></i><span>Logout</span></button>
+        </div>
+    </aside>
+
+    <button id="menuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-slate-800 text-white p-3 rounded-lg"><i class="fas fa-bars"></i></button>
+
+    <main class="lg:ml-64 min-h-screen">
+        <header class="glass-header sticky top-0 z-40 p-4 flex justify-between items-center lg:px-8">
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">Kelola User</h2>
+                <p class="text-sm text-gray-500">Manajemen pengguna sistem</p>
+            </div>
+            <button id="addUserBtn" class="bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 transition-all text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fas fa-plus"></i>
+                <span class="hidden sm:inline">Tambah User</span>
+            </button>
+        </header>
+
+        <div class="p-6">
+            <!-- Filters -->
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow p-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="searchInput" placeholder="Cari user..." class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <select id="roleFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Semua Role</option>
+                    </select>
+                    <button id="resetFilters" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg">Reset Filter</button>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">MFA</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Berita</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Login Terakhir</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody" class="divide-y divide-gray-200"></tbody>
+                    </table>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                    <div class="text-sm text-gray-500">Menampilkan <span id="showingFrom">0</span> - <span id="showingTo">0</span> dari <span id="totalItems">0</span> user</div>
+                    <div class="flex gap-2">
+                        <button id="prevPage" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50" disabled><i class="fas fa-chevron-left"></i></button>
+                        <span id="pageInfo" class="px-3 py-1">1 / 1</span>
+                        <button id="nextPage" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50" disabled><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- User Modal -->
+    <div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+            <h3 id="modalTitle" class="text-lg font-semibold text-gray-800 mb-4">Tambah User</h3>
+            <form id="userForm" class="space-y-4">
+                <input type="hidden" id="userId">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap *</label>
+                    <input type="text" id="nama_lengkap" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Username *</label>
+                    <input type="text" id="username" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                    <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password <span id="pwdHint" class="text-gray-400">(kosongkan jika tidak diubah)</span></label>
+                    <input type="password" id="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Role *</label>
+                    <select id="role_id" required class="w-full px-3 py-2 border border-gray-300 rounded-lg"></select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select id="userStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        <option value="aktif">Aktif</option>
+                        <option value="nonaktif">Nonaktif</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                    <textarea id="bio" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg"></textarea>
+                </div>
+                <div class="flex gap-2 pt-4">
+                    <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 transition-all text-white py-2 rounded-lg">Simpan</button>
+                    <button type="button" id="closeModal" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/common.js"></script>
+    <script>
+        checkAuth();
+
+        let currentPage = 1;
+        let totalPages = 1;
+        let roles = [];
+
+        // Load roles
+        async function loadRoles() {
+            try {
+                const response = await fetchAPI('api/users.php?roles=1');
+                if (response.success) {
+                    roles = response.data;
+                    const roleFilter = document.getElementById('roleFilter');
+                    const roleSelect = document.getElementById('role_id');
+                    roles.forEach(role => {
+                        roleFilter.innerHTML += `<option value="${role.role_name}">${role.role_name}</option>`;
+                        roleSelect.innerHTML += `<option value="${role.id}">${role.role_name} - ${role.description}</option>`;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading roles:', error);
+            }
+        }
+
+        // Load users
+        async function loadUsers() {
+            const search = document.getElementById('searchInput').value;
+            const role = document.getElementById('roleFilter').value;
+            const params = new URLSearchParams({ page: currentPage, limit: 10 });
+            if (search) params.append('search', search);
+            if (role) params.append('role', role);
+
+            try {
+                const response = await fetchAPI(`api/users.php?${params}`);
+                if (response.success) {
+                    renderUsers(response.data.data);
+                    updatePagination(response.data);
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            }
+        }
+
+        function renderUsers(users) {
+            const tbody = document.getElementById('usersTableBody');
+            if (!users || users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-gray-500">Tidak ada user</td></tr>';
+                return;
+            }
+
+            const roleColors = {
+                'super_admin': 'bg-purple-100 text-purple-800',
+                'admin': 'bg-indigo-100 text-blue-800',
+                'editor': 'bg-green-100 text-green-800',
+                'author': 'bg-yellow-100 text-yellow-800',
+                'viewer': 'bg-gray-100 text-gray-800'
+            };
+
+            tbody.innerHTML = users.map(user => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">
+                        <div>
+                            <p class="font-medium text-gray-800">${user.nama_lengkap}</p>
+                            <p class="text-sm text-gray-500">@${user.username}</p>
+                            <p class="text-xs text-gray-400">${user.email}</p>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full ${roleColors[user.role_name] || 'bg-gray-100'}">${user.role_name}</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full ${user.status === 'aktif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${user.status}</span></td>
+                    <td class="px-6 py-4">${user.mfa_enabled ? '<i class="fas fa-shield-alt text-green-600" title="MFA Aktif"></i>' : '<i class="fas fa-shield-alt text-gray-300" title="MFA Nonaktif"></i>'}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">${user.news_count || 0}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">${user.last_login ? formatDate(user.last_login) : '-'}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button onclick="editUser(${user.id_penulis})" class="p-2 text-indigo-600 hover:bg-blue-50 rounded" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteUser(${user.id_penulis})" class="p-2 text-red-600 hover:bg-red-50 rounded" title="Hapus"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updatePagination(data) {
+            totalPages = data.total_pages;
+            document.getElementById('showingFrom').textContent = data.total > 0 ? (data.page - 1) * data.limit + 1 : 0;
+            document.getElementById('showingTo').textContent = Math.min(data.page * data.limit, data.total);
+            document.getElementById('totalItems').textContent = data.total;
+            document.getElementById('pageInfo').textContent = `${data.page} / ${totalPages || 1}`;
+            document.getElementById('prevPage').disabled = data.page <= 1;
+            document.getElementById('nextPage').disabled = data.page >= totalPages;
+        }
+
+        // Modal functions
+        const modal = document.getElementById('userModal');
+        const form = document.getElementById('userForm');
+
+        document.getElementById('addUserBtn').addEventListener('click', () => {
+            document.getElementById('modalTitle').textContent = 'Tambah User';
+            document.getElementById('pwdHint').classList.add('hidden');
+            document.getElementById('password').required = true;
+            form.reset();
+            document.getElementById('userId').value = '';
+            modal.classList.remove('hidden');
+        });
+
+        document.getElementById('closeModal').addEventListener('click', () => modal.classList.add('hidden'));
+
+        async function editUser(id) {
+            try {
+                const response = await fetchAPI(`api/users.php?id=${id}`);
+                if (response.success && response.data) {
+                    const user = response.data;
+                    document.getElementById('modalTitle').textContent = 'Edit User';
+                    document.getElementById('pwdHint').classList.remove('hidden');
+                    document.getElementById('password').required = false;
+                    document.getElementById('userId').value = user.id_penulis;
+                    document.getElementById('nama_lengkap').value = user.nama_lengkap;
+                    document.getElementById('username').value = user.username;
+                    document.getElementById('email').value = user.email;
+                    document.getElementById('role_id').value = user.role_id;
+                    document.getElementById('userStatus').value = user.status;
+                    document.getElementById('bio').value = user.bio || '';
+                    document.getElementById('password').value = '';
+                    modal.classList.remove('hidden');
+                }
+            } catch (error) {
+                showToast('Gagal memuat data user', 'error');
+            }
+        }
+
+        async function deleteUser(id) {
+            if (!await confirmDialog('Apakah Anda yakin ingin menghapus user ini?')) return;
+            try {
+                const response = await fetchAPI(`api/users.php?id=${id}`, { method: 'DELETE' });
+                if (response.success) {
+                    showToast('User berhasil dihapus', 'success');
+                    loadUsers();
+                } else {
+                    showToast(response.message || 'Gagal menghapus user', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userId = document.getElementById('userId').value;
+            const data = {
+                nama_lengkap: document.getElementById('nama_lengkap').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                role_id: document.getElementById('role_id').value,
+                status: document.getElementById('userStatus').value,
+                bio: document.getElementById('bio').value
+            };
+            const password = document.getElementById('password').value;
+            if (password) data.password = password;
+
+            try {
+                const response = await fetchAPI('api/users.php' + (userId ? `?id=${userId}` : ''), {
+                    method: userId ? 'PUT' : 'POST',
+                    body: JSON.stringify(userId ? { ...data, id: userId } : data)
+                });
+                if (response.success) {
+                    showToast(userId ? 'User berhasil diperbarui' : 'User berhasil ditambahkan', 'success');
+                    modal.classList.add('hidden');
+                    loadUsers();
+                } else {
+                    showToast(response.message || 'Gagal menyimpan user', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan', 'error');
+            }
+        });
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', debounce(() => { currentPage = 1; loadUsers(); }, 300));
+        document.getElementById('roleFilter').addEventListener('change', () => { currentPage = 1; loadUsers(); });
+        document.getElementById('resetFilters').addEventListener('click', () => {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('roleFilter').value = '';
+            currentPage = 1;
+            loadUsers();
+        });
+        document.getElementById('prevPage').addEventListener('click', () => { if (currentPage > 1) { currentPage--; loadUsers(); } });
+        document.getElementById('nextPage').addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; loadUsers(); } });
+
+        // Initialize
+        loadRoles().then(() => loadUsers());
+    </script>
+</body>
+</html>
